@@ -1,0 +1,55 @@
+<?xml version="1.0"?>
+<project version="2">
+	<pipeline>
+		<pass name="atmosphere" type="shader" active="true" patchverts="1">
+			<shader type="vs" path="shaders\atmosphere_atmosphereVS.glsl" entry="main" />
+			<shader type="ps" path="shaders\atmosphere_atmospherePS.glsl" entry="main" />
+			<inputlayout>
+				<item value="Position" semantic="POSITION" />
+				<item value="Normal" semantic="NORMAL" />
+				<item value="Texcoord" semantic="TEXCOORD0" />
+			</inputlayout>
+			<rendertexture />
+			<items>
+				<item name="screen" type="geometry">
+					<type>ScreenQuadNDC</type>
+					<width>1</width>
+					<height>1</height>
+					<depth>1</depth>
+					<topology>TriangleList</topology>
+				</item>
+			</items>
+			<itemvalues />
+			<variables>
+				<variable type="float4x4" name="Projection" system="Projection" />
+				<variable type="float4x4" name="View" system="View" />
+				<variable type="float3" name="CameraDirection3" system="CameraPosition3" />
+				<variable type="float3" name="CameraPosition3" system="CameraPosition3" />
+				<variable type="float" name="time" system="Time" />
+			</variables>
+			<macros />
+		</pass>
+	</pipeline>
+	<objects>
+		<object type="texture" path="2k_earth_daymap.jpg" vflip="false" min_filter="Linear" mag_filter="Nearest" wrap_s="Repeat" wrap_t="Repeat">
+			<bind slot="0" name="atmosphere" />
+		</object>
+		<object type="texture" path="2k_earth_normal_map.png" vflip="false" min_filter="Linear" mag_filter="Nearest" wrap_s="Repeat" wrap_t="Repeat">
+			<bind slot="1" name="atmosphere" />
+		</object>
+	</objects>
+	<cameras />
+	<settings>
+		<entry type="file" name="atmosphere" shader="vs" />
+		<entry type="file" name="atmosphere" shader="ps" />
+		<entry type="camera" fp="false">
+			<distance>31</distance>
+			<pitch>75</pitch>
+			<yaw>202</yaw>
+			<roll>360</roll>
+		</entry>
+		<entry type="clearcolor" r="0" g="0" b="0" a="0" />
+		<entry type="usealpha" val="false" />
+	</settings>
+	<plugindata />
+</project>
