@@ -26,6 +26,28 @@
 				<variable type="float3" name="CameraDirection3" system="CameraPosition3" />
 				<variable type="float3" name="CameraPosition3" system="CameraPosition3" />
 				<variable type="float" name="time" system="Time" />
+				<variable type="float3" name="SunDirection">
+					<row>
+						<value>0</value>
+						<value>1</value>
+						<value>-0.100000001</value>
+					</row>
+				</variable>
+				<variable type="float" name="exposure">
+					<row>
+						<value>9.30000019</value>
+					</row>
+				</variable>
+				<variable type="bool" name="atmospherOn">
+					<row>
+						<value>true</value>
+					</row>
+				</variable>
+				<variable type="bool" name="fullIntegral">
+					<row>
+						<value>false</value>
+					</row>
+				</variable>
 			</variables>
 			<macros />
 		</pass>
@@ -38,14 +60,46 @@
 			<bind slot="1" name="atmosphere" />
 		</object>
 	</objects>
-	<cameras />
+	<cameras>
+		<camera name="sun_in_front">
+			<row>
+				<value>0.390731335</value>
+				<value>-1.34110451e-07</value>
+				<value>-0.920504808</value>
+				<value>-0</value>
+			</row>
+			<row>
+				<value>-0.627782702</value>
+				<value>0.7313537</value>
+				<value>-0.266478211</value>
+				<value>-2.38418579e-07</value>
+			</row>
+			<row>
+				<value>0.673214614</value>
+				<value>0.681998372</value>
+				<value>0.285762727</value>
+				<value>-29</value>
+			</row>
+			<row>
+				<value>0</value>
+				<value>0</value>
+				<value>0</value>
+				<value>1</value>
+			</row>
+			<row />
+		</camera>
+	</cameras>
 	<settings>
 		<entry type="file" name="atmosphere" shader="vs" />
 		<entry type="file" name="atmosphere" shader="ps" />
+		<entry type="pinned" name="SunDirection" owner="atmosphere" />
+		<entry type="pinned" name="exposure" owner="atmosphere" />
+		<entry type="pinned" name="atmospherOn" owner="atmosphere" />
+		<entry type="pinned" name="fullIntegral" owner="atmosphere" />
 		<entry type="camera" fp="false">
-			<distance>31</distance>
-			<pitch>75</pitch>
-			<yaw>202</yaw>
+			<distance>44</distance>
+			<pitch>66</pitch>
+			<yaw>346</yaw>
 			<roll>360</roll>
 		</entry>
 		<entry type="clearcolor" r="0" g="0" b="0" a="0" />
