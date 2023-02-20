@@ -1,0 +1,50 @@
+<?xml version="1.0"?>
+<project version="2">
+	<pipeline>
+		<pass name="compute_transmittance" type="shader" active="true" patchverts="1">
+			<shader type="vs" path="shaders\compute_transmittanceVS.glsl" entry="main" />
+			<shader type="ps" path="shaders\compute_transmittancePS.glsl" entry="main" />
+			<inputlayout>
+				<item value="Position" semantic="POSITION" />
+				<item value="Normal" semantic="NORMAL" />
+				<item value="Texcoord" semantic="TEXCOORD0" />
+			</inputlayout>
+			<rendertexture />
+			<items>
+				<item name="screen" type="geometry">
+					<type>ScreenQuad</type>
+					<width>1</width>
+					<height>1</height>
+					<depth>1</depth>
+					<topology>TriangleList</topology>
+				</item>
+			</items>
+			<itemvalues />
+			<variables>
+				<variable type="float2" name="ViewportSize" system="ViewportSize" />
+				<variable type="float4x4" name="viewProjection" system="Orthographic" />
+				<variable type="float4x4" name="GeometryTransform" system="GeometryTransform" />
+			</variables>
+			<macros />
+		</pass>
+	</pipeline>
+	<objects>
+		<object type="rendertexture" name="transmittance_RT" format="R32G32B32A32_FLOAT" fsize="256,64" clear="true">
+			<bind slot="0" name="compute_transmittance" />
+		</object>
+	</objects>
+	<cameras />
+	<settings>
+		<entry type="file" name="compute_transmittance" shader="vs" />
+		<entry type="file" name="compute_transmittance" shader="ps" />
+		<entry type="camera" fp="false">
+			<distance>7</distance>
+			<pitch>36</pitch>
+			<yaw>266</yaw>
+			<roll>360</roll>
+		</entry>
+		<entry type="clearcolor" r="0" g="0" b="0" a="0" />
+		<entry type="usealpha" val="false" />
+	</settings>
+	<plugindata />
+</project>

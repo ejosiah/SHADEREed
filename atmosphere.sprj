@@ -35,17 +35,12 @@
 				</variable>
 				<variable type="float" name="exposure">
 					<row>
-						<value>9.30000019</value>
+						<value>1</value>
 					</row>
 				</variable>
 				<variable type="bool" name="atmospherOn">
 					<row>
 						<value>true</value>
-					</row>
-				</variable>
-				<variable type="bool" name="fullIntegral">
-					<row>
-						<value>false</value>
 					</row>
 				</variable>
 			</variables>
@@ -58,6 +53,9 @@
 		</object>
 		<object type="texture" path="2k_earth_normal_map.png" vflip="false" min_filter="Linear" mag_filter="Nearest" wrap_s="Repeat" wrap_t="Repeat">
 			<bind slot="1" name="atmosphere" />
+		</object>
+		<object type="texture" path="2k_stars.jpg" vflip="false" min_filter="Linear" mag_filter="Nearest" wrap_s="Repeat" wrap_t="Repeat">
+			<bind slot="2" name="atmosphere" />
 		</object>
 	</objects>
 	<cameras>
@@ -95,11 +93,10 @@
 		<entry type="pinned" name="SunDirection" owner="atmosphere" />
 		<entry type="pinned" name="exposure" owner="atmosphere" />
 		<entry type="pinned" name="atmospherOn" owner="atmosphere" />
-		<entry type="pinned" name="fullIntegral" owner="atmosphere" />
 		<entry type="camera" fp="false">
-			<distance>44</distance>
-			<pitch>66</pitch>
-			<yaw>346</yaw>
+			<distance>50</distance>
+			<pitch>6</pitch>
+			<yaw>64</yaw>
 			<roll>360</roll>
 		</entry>
 		<entry type="clearcolor" r="0" g="0" b="0" a="0" />

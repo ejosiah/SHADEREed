@@ -49,6 +49,7 @@ vec3 rotationAxis();
 
 uniform sampler2D colorMap;
 uniform sampler2D normalMap;
+uniform sampler2D starMap;
 
 uniform vec3 CameraPosition3;
 uniform vec3 CameraDirection3;
@@ -89,6 +90,7 @@ void main(){
 	
 	vec3 color = mix(vec3(1), vec3(0, 0.3, 0.8), fs_in.uv.y);
 	color = vec3(0);
+	vec3 stars = texture(starMap, fs_in.uv).rgb;
 	
 	vec3 sunD = normalize(sunPosition - ray.origin);
 	float sun = max(0, dot(ray.direction, sunD));
@@ -98,6 +100,8 @@ void main(){
 	vec4 earth = paintEarth(ray, ed);
 
 	color = mix(color,  earth.rgb, earth.a);
+	
+	if(ed < 0) color = stars;
 	
 	float sd;
 	vec3 sunColor = paintSun(ray, sd).rgb;
@@ -230,7 +234,7 @@ vec4 paintEarth(Ray ray, out float depth){
 	vec4 color = vec4(0);
 	
 	Sphere sphere = Sphere(vec3(0), EARTH_RADIUS);
-	vec2 t = vec2(1000000, -1000000);
+	vec2 t = vec2(0);
 	if(test(ray, sphere, t)){
 		color.a = 1;
 		vec3 p = ray.origin + ray.direction * t.x;
@@ -266,11 +270,9 @@ vec4 paintEarth(Ray ray, out float depth){
 	Sphere atmosphere = Sphere(vec3(0), ATMOSPHERE_TOP);
 	vec2 t1 = vec2(0);
 	if(atmospherOn && test(ray, atmosphere, t1)){
-
 		color = rayMarchAtmosphere(ray, color, t.x);
-		
 	}
-	depth = min(t.x, t1.x);
+	depth = max(t.x, t1.x);
 	return color;
 	
 }
