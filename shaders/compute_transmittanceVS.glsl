@@ -1,13 +1,12 @@
 #version 460
 
-uniform mat4 viewProjection;
-uniform mat4 GeometryTransform;
-
-layout(location = 0) in vec3 pos;
-layout (location = 1) in vec3 normal;
+layout(location = 0) in vec2 pos;
+layout(location = 1) in vec2 uv;
 
 
-
+uniform mat4 PV;
+uniform mat4 M;
+ 
 void main(){
-	gl_Position = viewProjection * GeometryTransform * vec4(pos, 1);
+	gl_Position = PV * M * vec4(pos, 0, 1);
 }

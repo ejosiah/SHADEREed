@@ -8,8 +8,8 @@ uniform vec2 ViewportSize;
 
 #define ATMOSPHERE_TOP_RADIUS 6420.0
 #define ATMOSPHERE_BOTTOM_RADIUS 6360.0
-#define TRANSMITTANCE_TEXTURE_WIDTH int(ViewportSize.x)
-#define TRANSMITTANCE_TEXTURE_HEIGHT int(ViewportSize.y)
+#define TRANSMITTANCE_TEXTURE_WIDTH 256
+#define TRANSMITTANCE_TEXTURE_HEIGHT 64
 #define RAYLEIGH_SCATTERING vec3(0.005802,0.013558,0.033100)
 #define MIE_EXTINCTION vec3(0.000650,0.001881,0.000085)
 #define ABSORPTION_EXTINCTION vec3(0.000650,0.001881,0.000085)
@@ -128,7 +128,7 @@ void GetRMuFromTransmittanceTextureUv(vec2 uv, out float r, out float mu) {
     float d_min = ATMOSPHERE_TOP_RADIUS - r;
     float d_max = rho + H;
     float d = d_min + x_mu * (d_max - d_min);
-    mu = d == 0.0 ? float(1.0) : (H * H - rho * rho - d * d) / (2.0 * r * d);
+    mu = d == 0.0 ? 1.0 : (H * H - rho * rho - d * d) / (2.0 * r * d);
     mu = ClampCosine(mu);
 }
 
@@ -155,6 +155,7 @@ vec3 ComputeTransmittanceToTopAtmosphereBoundaryTexture(vec2 uv) {
 void main(){
 	vec2 uv = (gl_FragCoord.xy + .5)/ViewportSize;
 	vec3 transmittance = ComputeTransmittanceToTopAtmosphereBoundaryTexture(uv);
+
 	fragColor = vec4(transmittance, 1);
 }
 
